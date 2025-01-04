@@ -1,3 +1,10 @@
+My Notes:
+git add .
+git commit -m "first React-App"
+git remote add main https://github.com/ShridharMP/textutils.git
+git push --set-upstream main master
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
