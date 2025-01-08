@@ -1,27 +1,30 @@
 import React, { useState } from "react";
 
 export default function TextForm(props) {
+  const [text, setText] = useState("");
+
   const changeToUpperCase = () => {
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("Converted to UpperCase", "success");
   };
+
   const changeToLowerCase = () => {
     let newText = text.toLowerCase();
     setText(newText);
-  };
-  const handleOnChange = (event) => {
-    setText(event.target.value);
+    props.showAlert("Converted to LowerCase", "success");
   };
 
-  // const speak = () => {
-  //   let msg = new SpeechSynthesisUtterance();
-  //   msg.text = text;
-  //   window.speechSynthesis.speak(msg);
-  // };
+  const handleOnChange = (event) => {
+    setText(event.target.value);
+    //props.showAlert("Converted to LowerCase","success");
+  };
+
   const handlePaste = async () => {
     try {
       let newText = await navigator.clipboard.readText();
       setText(newText);
+      props.showAlert("Copied Text", "success")
     } catch (err) {
       console.log(err);
     }
@@ -39,26 +42,21 @@ export default function TextForm(props) {
       msg.voice = femaleVoice;
     }
     window.speechSynthesis.speak(msg);
+    props.showAlert("Speker Enabled", "success")
   };
 
-  const [text, setText] = useState("");
 
   const clearText = () => {
     setText("");
+    props.showAlert("Cleared the text", "success")
   };
-  // const [countNoOfSentences, setCountNoOfSentences] = useState(
-  //   text.split(/[".!?"]/).length - 1
-  // );
-  // const handleCountNoOfSentences = () => {
-  //   setCountNoOfSentences(text.split(/[".!?"]/).length - 1);
-  // };
-
   const removeExtraSpaces = () => {
     setText(text.replace(/\s+/g, " ").trim());
+    props.showAlert("Removed Extra Space", "success")
   };
   return (
-    <>
-      <div className="container">
+    < >
+      <div className="container" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
         <h1>{props.headings}</h1>
         <div className="my-3">
           <textarea
@@ -67,7 +65,7 @@ export default function TextForm(props) {
             value={text}
             rows="8"
             onChange={handleOnChange}
-          ></textarea>
+            style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white' }}></textarea>
         </div>
         <button className="btn btn-primary mx-2" onClick={changeToUpperCase}>
           Convert To UpperCase
@@ -94,20 +92,13 @@ export default function TextForm(props) {
         >
           Remove Extra Space In Paragraph
         </button>
-        {/* <button
-          className="btn btn-primary mx-2"
-          onClick={handleCountNoOfSentences}
-        >
-          Count No Of Sentences
-        </button> */}
       </div>
-      <div className="container">
+      <div className="container" style={{ color: props.mode === 'light' ? 'dark' : 'white' }}>
         <h2>Text Summary</h2>
         <b>{text.split(" ").length}</b> Words <b>{text.length}</b> Characters.
-        Required <b>{0.008 * text.split(" ").length}</b> Minutes to Read. 
-        {/*  No Of Sentences in Paragraph <b>{countNoOfSentences}</b> */}
+        Required <b>{0.008 * text.split(" ").length}</b> Minutes to Read.
         <h2>Preview</h2>
-        {text}
+        {text.length > 0 ? text : "Enter something to preview"}
       </div>
     </>
   );
