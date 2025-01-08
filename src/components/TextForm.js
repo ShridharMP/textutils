@@ -56,7 +56,7 @@ export default function TextForm(props) {
   };
   return (
     < >
-      <div className="container" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
+      <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
         <h1>{props.headings}</h1>
         <div className="my-3">
           <textarea
@@ -65,7 +65,7 @@ export default function TextForm(props) {
             value={text}
             rows="8"
             onChange={handleOnChange}
-            style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white' }}></textarea>
+            style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white',color: props.mode === 'dark' ? 'white' : 'black'}}></textarea>
         </div>
         <button className="btn btn-primary mx-2" onClick={changeToUpperCase}>
           Convert To UpperCase
@@ -93,7 +93,7 @@ export default function TextForm(props) {
           Remove Extra Space In Paragraph
         </button>
       </div>
-      <div className="container" style={{ color: props.mode === 'light' ? 'dark' : 'white' }}>
+      <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
         <h2>Text Summary</h2>
         <b>{text.split(" ").length}</b> Words <b>{text.length}</b> Characters.
         Required <b>{0.008 * text.split(" ").length}</b> Minutes to Read.

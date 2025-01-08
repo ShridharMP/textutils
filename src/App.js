@@ -1,8 +1,8 @@
-import "./App.css";
-import TextForm from "./components/TextForm";
-import NavBar from "./components/NavBar";
 import React, { useState } from "react";
+import "./App.css";
 import Alert from "./components/Alert";
+import NavBar from "./components/NavBar";
+import TextForm from "./components/TextForm";
 function App() {
   const [mode, setMode] = useState("dark");
 
@@ -15,7 +15,7 @@ function App() {
     })
     setTimeout(() => {
       setAlert(null);
-    }, 1500);
+    }, 3000);
   }
 
   const handleMode = () => {
@@ -39,8 +39,8 @@ function App() {
         mode={mode}
       />
       <Alert alert={alert}></Alert>
-      <div className="container" mode={mode}>
-        <TextForm headings="Enter The Text To Analyze" mode={mode} />
+      <div className="container my-3" mode={mode} style={{ color: mode === 'dark' ? 'light' : 'grey' }}>
+        <TextForm headings="Enter The Text To Analyze" mode={mode} showAlert={showAlert}/>
       </div>
     </>
   );
