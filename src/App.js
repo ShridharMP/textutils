@@ -24,15 +24,25 @@ function App() {
     }, 1500);
   };
 
-  const handleMode = () => {
+  const removeBodyColor = () => {
+    document.body.classList.remove('bg-primary');
+    document.body.classList.remove('bg-danger');
+    document.body.classList.remove('bg-warning');
+    document.body.classList.remove('bg-info');
+    document.body.classList.remove('bg-dark');
+    document.body.classList.remove('bg-light');
+  }
+  
+  const handleMode = (cls) => {
+    removeBodyColor();
     if (mode === "light") {
       setMode("dark");
-      document.body.style.backgroundColor = '#042743';
-      showAlert(mode + " mode has been Enabled", "success");
+      document.body.classList.add('bg-' + cls);
+      showAlert("Dark mode has been Enabled", "success");
     } else {
       setMode("light");
       document.body.style.backgroundColor = 'white';
-      showAlert(mode + " mode has been Enabled", "success");
+      showAlert("Light mode has been Enabled", "success");
     }
   };
 
@@ -48,7 +58,7 @@ function App() {
       <div className="container" mode={mode}>
         <Routes>
           <Route exact path="/" element={<TextForm headings="Enter The Text To Analyze" mode={mode} showAlert={showAlert} />} />
-          <Route exact path="/about" element={<About mode={mode}/>} />
+          <Route exact path="/about" element={<About mode={mode} />} />
         </Routes>
       </div>
     </Router>

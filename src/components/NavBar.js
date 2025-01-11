@@ -35,21 +35,23 @@ export default function NavBar(props) {
               </Link>
             </li>
           </ul>
+          <div className="d-flex">
+            <button className="bg-primary rounded mx-2" onClick={() => { props.handleMode('primary') }} style={{ height: "20px", width: "20px", cursor: 'pointer', border: 'none' }}></button>
+            <button className="bg-success rounded mx-2" onClick={() => { props.handleMode('success') }} style={{ height: "20px", width: "20px", cursor: 'pointer', border: 'none' }}></button>
+            <button className="bg-danger rounded mx-2" onClick={() => { props.handleMode('danger') }} style={{ height: "20px", width: "20px", cursor: 'pointer', border: 'none' }}></button>
+            <button className="bg-warning rounded mx-2" onClick={() => { props.handleMode('warning') }} style={{ height: "20px", width: "20px", cursor: 'pointer', border: 'none' }}></button>
+            <button className="bg-info rounded mx-2" onClick={() => { props.handleMode('info') }} style={{ height: "20px", width: "20px", cursor: 'pointer', border: 'none' }}></button>
+          </div>
           <div
-            className={`form-check form-switch text-${
-              props.mode === "light" ? "dark" : "light"
-            }`}
+            className={`form-check form-switch text-${props.mode === "light" ? "dark" : "light"}`}
           >
             <input
               className="form-check-input"
               type="checkbox"
               id="flexSwitchCheckDefault"
-              onClick={props.handleMode}
+              onClick={() => { props.handleMode(props.mode === "light" ? "dark" : "light") }}
             />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
-            >
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
               Enable {props.mode === "light" ? "dark" : "light"} Mode
             </label>
           </div>
@@ -58,6 +60,17 @@ export default function NavBar(props) {
     </nav>
   );
 }
+
+NavBar.propTypes = {
+  title: PropTypes.string.isRequired,
+  aboutText: PropTypes.string,
+  mode: PropTypes.string.isRequired,
+  handleMode: PropTypes.func.isRequired,
+};
+
+NavBar.defaultProps = {
+  aboutText: "About Text",
+};
 
 NavBar.propTypes = {
   title: PropTypes.string.isRequired,
