@@ -25,16 +25,17 @@ export default function TextForm(props) {
   const handleOnChange = (event) => {
     setText(event.target.value);
   };
-
-  const handlePaste = async () => {
-    try {
-      let newText = await navigator.clipboard.readText();
-      setText(newText);
-      props.showAlert("Copied Text", "success")
-    } catch (err) {
-      console.log(err);
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        document.getSelection().removeAllRanges();
+        props.showAlert("Copied Text", "success");
+      })
+      .catch(err => {
+        props.showAlert("Failed to copy text", "danger");
+      });
   };
+
   const speak = () => {
     const msg = new SpeechSynthesisUtterance();
     msg.text = text;
@@ -90,8 +91,8 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-2 my-1" onClick={clearText}>
           Clear Text
         </button>
-        <button className="btn btn-primary mx-2 my-1" onClick={handlePaste}>
-          Reload Previous Text
+        <button className="btn btn-primary mx-2 my-1" onClick={handleCopy}>
+          Copy Text
         </button>
         <button
           className="btn btn-primary mx-2 my-1"
@@ -102,7 +103,7 @@ export default function TextForm(props) {
       </div>
       <div className="container my-2" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
         <h2>Text Summary</h2>
-        <b>{text.split(" ").filter((element) => { return element.length !== 0 }).length}</b> Words <b>{text.length}</b> Characters.
+        <b>{text.split(/\s+/).filter((element) => { return element.length !== 0 }).length}</b> Words <b>{text.length}</b> Characters.
         Required <b>{0.008 * text.split(" ").filter((element) => { return element.length !== 0 }).length}</b> Minutes to Read.
         <h2>Preview</h2>
         {text.length > 0 ? text : "Nothing to preview!"}
