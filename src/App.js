@@ -12,7 +12,7 @@ import {
 
 function App() {
   const [mode, setMode] = useState("light");
-  const [alert, setAlert] = useState({ msg: "", type: "success" });
+  const [alert, setAlert] = useState({ msg: "The alert message", type: "success" });
 
   const showAlert = (message, type) => {
     setAlert({
@@ -28,11 +28,11 @@ function App() {
     if (mode === "light") {
       setMode("dark");
       document.body.style.backgroundColor = '#042743';
-      showAlert("DarkMode has been Enabled", "success");
+      showAlert(mode + " mode has been Enabled", "success");
     } else {
       setMode("light");
       document.body.style.backgroundColor = 'white';
-      showAlert("LightMode has been Enabled", "success");
+      showAlert(mode + " mode has been Enabled", "success");
     }
   };
 
@@ -48,7 +48,7 @@ function App() {
       <div className="container" mode={mode}>
         <Routes>
           <Route exact path="/" element={<TextForm headings="Enter The Text To Analyze" mode={mode} showAlert={showAlert} />} />
-          <Route exact path="/about" element={<About />} />
+          <Route exact path="/about" element={<About mode={mode}/>} />
         </Routes>
       </div>
     </Router>

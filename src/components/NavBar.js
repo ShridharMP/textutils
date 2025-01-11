@@ -50,7 +50,7 @@ export default function NavBar(props) {
               className="form-check-label"
               htmlFor="flexSwitchCheckDefault"
             >
-              Enable {props.mode} Mode
+              Enable {props.mode === "light" ? "dark" : "light"} Mode
             </label>
           </div>
         </div>
@@ -61,13 +61,11 @@ export default function NavBar(props) {
 
 NavBar.propTypes = {
   title: PropTypes.string.isRequired,
-  aboutText: PropTypes.string.isRequired,
+  aboutText: PropTypes.string,
   mode: PropTypes.string.isRequired,
   handleMode: PropTypes.func.isRequired,
 };
 
 NavBar.defaultProps = {
-  title: "Title",
   aboutText: "About Text",
-  mode: "light",
 };

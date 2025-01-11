@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
+
+TextForm.propTypes = {
+  showAlert: PropTypes.func.isRequired,
+  headings: PropTypes.string.isRequired,
+  mode: PropTypes.string.isRequired
+};
 
 export default function TextForm(props) {
   const [text, setText] = useState("");
@@ -17,7 +24,6 @@ export default function TextForm(props) {
 
   const handleOnChange = (event) => {
     setText(event.target.value);
-    //props.showAlert("Converted to LowerCase","success");
   };
 
   const handlePaste = async () => {
@@ -61,44 +67,45 @@ export default function TextForm(props) {
         <div className="my-3">
           <textarea
             className="form-control"
+            placeholder="Enter the text here"
             id="myTextAreaBox"
             value={text}
             rows="8"
             onChange={handleOnChange}
-            style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white',color: props.mode === 'dark' ? 'white' : 'black'}}></textarea>
+            style={{ backgroundColor: props.mode === 'dark' ? '#39393e' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }}></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={changeToUpperCase}>
+        <button className="btn btn-primary mx-2 my-1" onClick={changeToUpperCase}>
           Convert To UpperCase
         </button>
-        <button className="btn btn-primary mx-2" onClick={changeToLowerCase}>
+        <button className="btn btn-primary mx-2 my-1" onClick={changeToLowerCase}>
           Convert To LowerCase
         </button>
         <button
           type="submit"
           onClick={speak}
-          className="btn btn-warning mx-2 my-2"
+          className="btn btn-warning mx-2 my-1"
         >
           Speak
         </button>
-        <button className="btn btn-primary mx-2" onClick={clearText}>
+        <button className="btn btn-primary mx-2 my-1" onClick={clearText}>
           Clear Text
         </button>
-        <button className="btn btn-primary mx-2" onClick={handlePaste}>
+        <button className="btn btn-primary mx-2 my-1" onClick={handlePaste}>
           Reload Previous Text
         </button>
         <button
-          className="btn btn-primary mx-2"
+          className="btn btn-primary mx-2 my-1"
           onClick={removeExtraSpaces}
         >
           Remove Extra Space In Paragraph
         </button>
       </div>
-      <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
+      <div className="container my-2" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
         <h2>Text Summary</h2>
-        <b>{text.split(" ").length}</b> Words <b>{text.length}</b> Characters.
-        Required <b>{0.008 * text.split(" ").length}</b> Minutes to Read.
+        <b>{text.split(" ").filter((element) => { return element.length !== 0 }).length}</b> Words <b>{text.length}</b> Characters.
+        Required <b>{0.008 * text.split(" ").filter((element) => { return element.length !== 0 }).length}</b> Minutes to Read.
         <h2>Preview</h2>
-        {text.length > 0 ? text : "Enter something to preview"}
+        {text.length > 0 ? text : "Nothing to preview!"}
       </div>
     </>
   );

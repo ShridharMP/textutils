@@ -1,33 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 
-export default function About() {
-  const [btnText, setBtnText] = useState("Enable White Mode");
-  const [myStyle, setMyStyle] = useState({
-    color: "white",
-    backgroundColor: "black",
-    border: '1px solid white'
-  });
-  const enableDarkMode = () => {
-    if (myStyle.color === "black") {
-      setMyStyle({
-        color: "White",
-        backgroundColor: "black",
-        border: '1px solid white'
-      });
-      setBtnText("Enable White Mode");
-    } else {
-      setMyStyle({
-        color: "black",
-        backgroundColor: "white",
-        border: '1px solid black'
-      });
-      setBtnText("Enable Black Mode");
-    }
+export default function About(props) {
+  let myStyle = {
+    color: props.mode === 'dark' ? 'white' : 'black',
+    backgroundColor: props.mode === 'dark' ? 'grey' : 'white',
+    border: '2px solid' + props.mode === 'dark' ? 'grey' : 'white',
+    borderColor: props.mode === 'dark' ? 'grey' : 'white'
   };
 
   return (
     <div className="container my-3" style={myStyle}>
-      <h2>About US</h2>
+    <h2 style={{ color: props.mode === 'dark' ? 'white' : 'black', backgroundColor: props.mode === 'dark' ? 'grey' : 'white' }}>About US</h2>
       <div className="accordion" id="accordionExample" style={myStyle}>
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingOne">
@@ -40,7 +24,7 @@ export default function About() {
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-              Accordion Item #1
+              <strong> Analyze Text</strong>
             </button>
           </h2>
           <div
@@ -50,18 +34,12 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the first item's accordion body.</strong> It is
-              shown by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              Text Util web app helpyou to convrt the text to UpperCase
+              ,lowercase,clear the text and copytext and etc functionality to work around the text
             </div>
           </div>
         </div>
-        <div className="accordion-item">
+        <div className="accordion-item" style={myStyle}>
           <h2 className="accordion-header" id="headingTwo">
             <button
               className="accordion-button collapsed"
@@ -72,7 +50,7 @@ export default function About() {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              Accordion Item #2
+              <strong> About US</strong>
             </button>
           </h2>
           <div
@@ -82,18 +60,14 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the second item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              This website aims to help you with tasks where text formatting is needed.
+              It's not intended to replace a word processor,
+              but the formatting tools available here can help speed up some jobs which might otherwise be long and repetitive.
+              TXTformat can also quickly tell you how many words and characters are in your text.
             </div>
           </div>
         </div>
-        <div className="accordion-item">
+        <div className="accordion-item" style={myStyle}>
           <h2 className="accordion-header" id="headingThree">
             <button
               className="accordion-button collapsed"
@@ -104,7 +78,7 @@ export default function About() {
               aria-expanded="false"
               aria-controls="collapseThree"
             >
-              Accordion Item #3
+              <strong>Browser Comaptible</strong>
             </button>
           </h2>
           <div
@@ -114,27 +88,17 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the third item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              Different browsers read website code differently,
+              so it's important to ensure that your website is compatible across multiple browsers.
+              You can use tools like SortSite to scan your website for browser compatibility issues
             </div>
           </div>
         </div>
       </div>
-      <div className="container">
-        <button
-          type="button"
-          className="btn btn-primary my-3"
-          onClick={enableDarkMode}
-        >
-          {btnText}
-        </button>
-      </div>
     </div>
   );
 }
+
+About.propTypes = {
+  mode: PropTypes.string.isRequired,
+};
